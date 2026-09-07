@@ -1,4 +1,5 @@
 import Button from "../../../components/common/Button";
+import Container from "../../../components/layout/Container";
 function Hero() {
   return (
     <>
@@ -12,6 +13,7 @@ function Hero() {
           fontFamily: "'Roboto', sans-serif",
         }}
       >
+        
         {/* Subtle texture overlay */}
         <div
           className="absolute inset-0 opacity-10 pointer-events-none"
@@ -35,8 +37,12 @@ function Hero() {
           style={{ background: "#fff" }}
         />
 
+        
+
         {/* Main content */}
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-10 sm:py-16 lg:py-24 flex flex-col lg:flex-row items-center gap-6 sm:gap-8 lg:gap-12">
+        {/* <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-10 sm:py-16 lg:py-24 flex flex-col lg:flex-row items-center gap-6 sm:gap-8 lg:gap-12"> */}
+
+        <Container className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-10 sm:py-16 lg:py-24 flex flex-col lg:flex-row items-center gap-6 sm:gap-8 lg:gap-12">
           {/* ── Left column — Text ── */}
           <div className="flex-1 flex flex-col gap-4 sm:gap-6 text-center lg:text-left">
             {/* Script tagline */}
@@ -124,7 +130,8 @@ function Hero() {
               }}
             />
           </div>
-        </div>
+          </Container>
+        {/* </div> */}
 
         {/* Carousel dots */}
         <div className="relative z-10 flex justify-center gap-2 pb-6 sm:pb-8">

@@ -46,14 +46,6 @@ function Navbar() {
             Sign In
           </button>
 
-          <button
-            className="btn btn-sm font-medium text-white border-none"
-            style={{ background: "linear-gradient(135deg, #1e1e2e, #2d2d44)" }}
-            onClick={openRegister}
-            id="navbar-sign-up"
-          >
-            Sign Up
-          </button>
 
           <ThemeToggle />
         </div>
@@ -106,9 +98,9 @@ function Navbar() {
           </Link>
           <button
             className="text-base font-medium py-2 px-3 rounded-lg hover:bg-base-200 transition-colors text-left bg-transparent border-none cursor-pointer"
-            onClick={() => { setMenuOpen(false); openRegister(); }}
+            onClick={() => { setMenuOpen(false); openLogin(); }}
           >
-            Sign Up
+            Sign in
           </button>
           <div className="border-t border-base-200 pt-3">
             <ThemeToggle />
@@ -116,7 +108,7 @@ function Navbar() {
         </div>
       )}
 
-      <LoginModal isOpen={showLogin} onClose={() => setShowLogin(false)} />
+      <LoginModal isOpen={showLogin} onClose={() => setShowLogin(false)} onSwitchToRegister={openRegister} />
       <RegisterModal
         isOpen={showRegister}
         onClose={() => setShowRegister(false)}

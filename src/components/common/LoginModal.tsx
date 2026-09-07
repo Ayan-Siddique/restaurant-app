@@ -3,9 +3,10 @@ import { useState, useEffect, useCallback } from "react";
 type LoginModalProps = {
   isOpen: boolean;
   onClose: () => void;
+  onSwitchToRegister?: () => void;
 };
 
-const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
+const LoginModal = ({ isOpen, onClose, onSwitchToRegister }: LoginModalProps) => {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -248,9 +249,9 @@ const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
             <button
               type="button"
               className="font-semibold text-gray-900 bg-transparent border-none cursor-pointer underline underline-offset-2 transition-colors hover:text-gray-600"
-              // onClick={onSwitchToLogin}
+              onClick={onSwitchToRegister}
             >
-              Sign in
+              Sign up
             </button>
           </p>
           </div>

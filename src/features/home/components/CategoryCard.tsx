@@ -29,7 +29,6 @@ function CategoryCard({ category }: CategoryCardProps) {
       <article
         className="cat-card flex-shrink-0 cursor-pointer overflow-hidden flex flex-col w-[220px] sm:w-[250px] md:w-[280px]"
         style={{
-          borderRadius: "1.25rem",
           boxShadow: "0 2px 16px rgba(0,0,0,0.07)",
         }}
       >

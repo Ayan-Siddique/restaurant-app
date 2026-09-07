@@ -1,14 +1,23 @@
 import { useState } from "react";
+
 import type { MenuItem } from "../../menu/types";
+
 import NotFound from "../../../components/common/NotFound";
 import SectionHeading from "../../../components/common/SectionHeading";
 import MenuCard from "../../menu/components/MenuCard";
+import Container from "../../../components/layout/Container";
 
 interface PopularDishesProps {
   items: MenuItem[];
 }
 
-const FILTER_TABS = ["All", "Pizza", "Burger", "Pasta", "Dessert"] as const;
+const FILTER_TABS = [
+  "All",
+  "Pizza",
+  "Burger",
+  "Pasta",
+  "Dessert",
+] as const;
 
 function PopularDishes({ items }: PopularDishesProps) {
   const [activeTab, setActiveTab] = useState<string>("All");
@@ -17,49 +26,58 @@ function PopularDishes({ items }: PopularDishesProps) {
     activeTab === "All"
       ? items
       : items.filter(
-          (item) => item.category.toLowerCase() === activeTab.toLowerCase()
+          (item) =>
+            item.category.toLowerCase() === activeTab.toLowerCase()
         );
 
   return (
-    <>
-      <section
-        className="w-full py-12 md:py-20 px-3 sm:px-4"
-        style={{
-          fontFamily: "'Roboto', sans-serif",
-          background: "#f9f5f0",
-        }}
-      >
-        {/* ── Section header ── */}
-        <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-12">
+    <section
+      className="w-full py-12 md:py-20"
+      style={{
+        fontFamily: "'Roboto', sans-serif",
+        background: "#f9f5f0",
+      }}
+    >
+      <Container>
+        {/* Section Header */}
+        <div className="mx-auto mb-8 max-w-2xl text-center sm:mb-12">
           <p
-            className="text-sm sm:text-base font-medium mb-2 m-0"
+            className="m-0 mb-2 text-sm font-medium sm:text-base"
             style={{ color: "#f5a623" }}
           >
             Popular Dishes
           </p>
-          <SectionHeading colorHeading="Foods">Our Delicious</SectionHeading>
+
+          <SectionHeading colorHeading="Foods">
+            Our Delicious
+          </SectionHeading>
+
           <p
-            className="text-sm sm:text-base m-0"
+            className="m-0 text-sm sm:text-base"
             style={{ color: "#888" }}
           >
-            Food is any substance consumed to provide nutritional support for an
-            organism.
+            Food is any substance consumed to provide nutritional support for
+            an organism.
           </p>
         </div>
 
-        {/* ── Filter tabs ── */}
-        <div className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-8 sm:mb-12">
+        {/* Filter Tabs */}
+        <div className="mb-8 flex flex-wrap justify-center gap-2 sm:mb-12 sm:gap-3">
           {FILTER_TABS.map((tab) => {
             const isActive = activeTab === tab;
+
             return (
               <button
                 key={tab}
+                type="button"
                 onClick={() => setActiveTab(tab)}
-                className="px-4 sm:px-6 py-1.5 sm:py-2 text-xs sm:text-sm font-medium rounded transition-all duration-300 cursor-pointer"
+                className="cursor-pointer rounded px-4 py-1.5 text-xs font-medium transition-all duration-300 sm:px-6 sm:py-2 sm:text-sm"
                 style={{
                   background: isActive ? "#f5a623" : "#fff",
                   color: isActive ? "#fff" : "#2d2d2d",
-                  border: isActive ? "2px solid #f5a623" : "2px solid #e0ddd8",
+                  border: isActive
+                    ? "2px solid #f5a623"
+                    : "2px solid #e0ddd8",
                   boxShadow: isActive
                     ? "0 4px 12px rgba(245,166,35,0.3)"
                     : "none",
@@ -71,29 +89,32 @@ function PopularDishes({ items }: PopularDishesProps) {
           })}
         </div>
 
-        {/* ── Dish grid ── */}
-        <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 justify-items-center">
+        {/* Dish Grid */}
+        <div className="grid grid-cols-1 justify-items-center gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 lg:gap-8">
           {filtered.map((item) => (
-            <div key={item.id} className="w-full max-w-sm">
+            <div
+              key={item.id}
+              className="w-full max-w-sm"
+            >
               <MenuCard item={item} />
             </div>
           ))}
         </div>
 
-        {/* Empty state */}
+        {/* Empty State */}
         {filtered.length === 0 && (
-          <div className="w-full flex justify-center mt-6">
+          <div className="mt-6 flex w-full justify-center">
             <NotFound
               title="Nothing found"
               message="No dishes in this category with the current filters"
               buttonText="Clear filters"
               onAction={() => setActiveTab("All")}
-              className="py-8 min-h-0 bg-transparent"
+              className="min-h-0 bg-transparent py-8"
             />
           </div>
         )}
-      </section>
-    </>
+      </Container>
+    </section>
   );
 }
 
