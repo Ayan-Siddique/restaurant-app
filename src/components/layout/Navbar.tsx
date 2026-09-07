@@ -2,10 +2,22 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import ThemeToggle from "./ThemeToggle";
 import LoginModal from "../common/LoginModal";
+import RegisterModal from "../common/RegisterModal";
 
 function Navbar() {
   const [showLogin, setShowLogin] = useState(false);
+  const [showRegister, setShowRegister] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+
+  /* Switch between modals */
+  const openLogin = () => {
+    setShowRegister(false);
+    setShowLogin(true);
+  };
+  const openRegister = () => {
+    setShowLogin(false);
+    setShowRegister(true);
+  };
 
   return (
     <>
@@ -28,10 +40,19 @@ function Navbar() {
 
           <button
             className="btn btn-sm btn-outline font-medium"
-            onClick={() => setShowLogin(true)}
+            onClick={openLogin}
             id="navbar-sign-in"
           >
             Sign In
+          </button>
+
+          <button
+            className="btn btn-sm font-medium text-white border-none"
+            style={{ background: "linear-gradient(135deg, #1e1e2e, #2d2d44)" }}
+            onClick={openRegister}
+            id="navbar-sign-up"
+          >
+            Sign Up
           </button>
 
           <ThemeToggle />
@@ -41,7 +62,7 @@ function Navbar() {
         <div className="flex md:hidden items-center gap-2">
           <button
             className="btn btn-sm btn-outline font-medium"
-            onClick={() => setShowLogin(true)}
+            onClick={openLogin}
             id="navbar-sign-in-mobile"
           >
             Sign In
@@ -83,6 +104,12 @@ function Navbar() {
           >
             Menu
           </Link>
+          <button
+            className="text-base font-medium py-2 px-3 rounded-lg hover:bg-base-200 transition-colors text-left bg-transparent border-none cursor-pointer"
+            onClick={() => { setMenuOpen(false); openRegister(); }}
+          >
+            Sign Up
+          </button>
           <div className="border-t border-base-200 pt-3">
             <ThemeToggle />
           </div>
@@ -90,6 +117,11 @@ function Navbar() {
       )}
 
       <LoginModal isOpen={showLogin} onClose={() => setShowLogin(false)} />
+      <RegisterModal
+        isOpen={showRegister}
+        onClose={() => setShowRegister(false)}
+        onSwitchToLogin={openLogin}
+      />
     </>
   );
 }
