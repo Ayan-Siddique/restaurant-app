@@ -5,11 +5,10 @@ function Hero() {
       <style>{`@import url('https://fonts.googleapis.com/css2?family=Doppio+One&family=Roboto:wght@400;500;700&display=swap');`}</style>
 
       <section
-        className="relative w-full overflow-hidden"
+        className="relative w-full overflow-hidden min-h-[400px] md:min-h-[500px] lg:min-h-[600px]"
         style={{
           background:
             "linear-gradient(135deg, #6b1317 0%, #8b1a1f 40%, #7a1519 100%)",
-          minHeight: "600px",
           fontFamily: "'Roboto', sans-serif",
         }}
       >
@@ -24,25 +23,25 @@ function Hero() {
 
         {/* Dot particles */}
         <div
-          className="absolute top-10 right-40 w-2 h-2 rounded-full opacity-40"
+          className="absolute top-10 right-40 w-2 h-2 rounded-full opacity-40 hidden md:block"
           style={{ background: "#fff" }}
         />
         <div
-          className="absolute top-32 right-60 w-1.5 h-1.5 rounded-full opacity-30"
+          className="absolute top-32 right-60 w-1.5 h-1.5 rounded-full opacity-30 hidden md:block"
           style={{ background: "#fff" }}
         />
         <div
-          className="absolute bottom-40 right-80 w-1 h-1 rounded-full opacity-25"
+          className="absolute bottom-40 right-80 w-1 h-1 rounded-full opacity-25 hidden md:block"
           style={{ background: "#fff" }}
         />
 
         {/* Main content */}
-        <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-12 py-16 lg:py-24 flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-10 sm:py-16 lg:py-24 flex flex-col lg:flex-row items-center gap-6 sm:gap-8 lg:gap-12">
           {/* ── Left column — Text ── */}
-          <div className="flex-1 flex flex-col gap-6 text-center lg:text-left">
+          <div className="flex-1 flex flex-col gap-4 sm:gap-6 text-center lg:text-left">
             {/* Script tagline */}
             <p
-              className="text-lg lg:text-xl italic m-0"
+              className="text-base sm:text-lg lg:text-xl italic m-0"
               style={{ color: "#f5a623" }}
             >
               Eat Sleep And
@@ -53,7 +52,7 @@ function Hero() {
               className="m-0 leading-tight"
               style={{
                 fontFamily: "'Doppio One', sans-serif",
-                fontSize: "clamp(2.5rem, 5vw, 4rem)",
+                fontSize: "clamp(2rem, 5vw, 4rem)",
                 color: "#fff",
               }}
             >
@@ -64,7 +63,7 @@ function Hero() {
 
             {/* Subtitle */}
             <p
-              className="text-base lg:text-lg m-0 max-w-md"
+              className="text-sm sm:text-base lg:text-lg m-0 max-w-md mx-auto lg:mx-0"
               style={{ color: "rgba(255,255,255,0.7)" }}
             >
               Food is any substance consumed to provide nutritional support for
@@ -72,7 +71,7 @@ function Hero() {
             </p>
 
             {/* CTA button */}
-            <div className="mt-6">
+            <div className="mt-4 sm:mt-6">
               <Button to="/menu">
                 Explore Menu
               </Button>
@@ -83,7 +82,7 @@ function Hero() {
           <div className="flex-1 flex justify-center lg:justify-end relative">
             {/* Decorative line-art icons */}
             <svg
-              className="absolute -top-4 right-10 opacity-30"
+              className="absolute -top-4 right-10 opacity-30 hidden sm:block"
               width="50"
               height="50"
               viewBox="0 0 50 50"
@@ -95,7 +94,7 @@ function Hero() {
               <circle cx="25" cy="25" r="10" />
             </svg>
             <svg
-              className="absolute top-20 -left-4 opacity-25"
+              className="absolute top-20 -left-4 opacity-25 hidden sm:block"
               width="40"
               height="40"
               viewBox="0 0 40 40"
@@ -110,18 +109,15 @@ function Hero() {
             <img
               src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&h=500&fit=crop"
               alt="Delicious burger"
-              className="relative z-10 object-cover"
+              className="relative z-10 object-cover w-[85vw] sm:w-[60vw] md:w-[45vw] lg:w-[500px] max-w-[500px] h-auto rounded-xl"
               style={{
-                width: "min(500px, 90vw)",
-                height: "auto",
-                borderRadius: "12px",
                 filter: "drop-shadow(0 20px 40px rgba(0,0,0,0.4))",
               }}
             />
 
             {/* Orange accent behind image */}
             <div
-              className="absolute -right-6 top-8 bottom-8 w-20 rounded-lg"
+              className="absolute -right-6 top-8 bottom-8 w-12 sm:w-16 lg:w-20 rounded-lg hidden sm:block"
               style={{
                 background: "#f5a623",
                 opacity: 0.6,
@@ -131,17 +127,17 @@ function Hero() {
         </div>
 
         {/* Carousel dots */}
-        <div className="relative z-10 flex justify-center gap-2 pb-8">
+        <div className="relative z-10 flex justify-center gap-2 pb-6 sm:pb-8">
           <span
-            className="w-3 h-3 rounded-full"
+            className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full"
             style={{ background: "#f5a623" }}
           />
           <span
-            className="w-3 h-3 rounded-full"
+            className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full"
             style={{ background: "rgba(255,255,255,0.4)" }}
           />
           <span
-            className="w-3 h-3 rounded-full"
+            className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full"
             style={{ background: "rgba(255,255,255,0.4)" }}
           />
         </div>

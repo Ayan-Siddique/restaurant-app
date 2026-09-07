@@ -20,16 +20,16 @@ function Categories({ categories }: CategoriesProps) {
 
   return (
     <section
-      className="relative w-full py-16 px-4"
+      className="relative w-full py-10 md:py-16 px-2 md:px-4"
       style={{
         fontFamily: "'Roboto', sans-serif",
         background: "#f9f5f0",
       }}
     >
-      {/* ── Left arrow ── */}
+      {/* ── Left arrow — hidden on mobile ── */}
       <button
         onClick={() => scroll("left")}
-        className="btn btn-circle btn-ghost btn-sm absolute left-3 top-1/2 -translate-y-1/2 z-10 bg-white shadow-md hover:bg-gray-50"
+        className="hidden sm:flex btn btn-circle btn-ghost btn-sm absolute left-3 top-1/2 -translate-y-1/2 z-10 bg-white shadow-md hover:bg-gray-50 items-center justify-center"
         style={{
           border: "1px solid #e5e5e5",
           width: "40px",
@@ -43,7 +43,7 @@ function Categories({ categories }: CategoriesProps) {
       {/* ── Card track ── */}
       <div
         ref={scrollRef}
-        className="flex gap-8 overflow-x-auto scroll-smooth px-14 pb-6"
+        className="flex gap-4 md:gap-8 overflow-x-auto scroll-smooth px-4 sm:px-14 pb-6"
         style={{ scrollbarWidth: "none" }}
       >
         {categories.map((cat) => (
@@ -51,10 +51,10 @@ function Categories({ categories }: CategoriesProps) {
         ))}
       </div>
 
-      {/* ── Right arrow ── */}
+      {/* ── Right arrow — hidden on mobile ── */}
       <button
         onClick={() => scroll("right")}
-        className="btn btn-circle btn-ghost btn-sm absolute right-3 top-1/2 -translate-y-1/2 z-10 bg-white shadow-md hover:bg-gray-50"
+        className="hidden sm:flex btn btn-circle btn-ghost btn-sm absolute right-3 top-1/2 -translate-y-1/2 z-10 bg-white shadow-md hover:bg-gray-50 items-center justify-center"
         style={{
           border: "1px solid #e5e5e5",
           width: "40px",

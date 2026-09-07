@@ -27,18 +27,17 @@ function CategoryCard({ category }: CategoryCardProps) {
       `}</style>
 
       <article
-        className="cat-card flex-shrink-0 cursor-pointer overflow-hidden flex flex-col"
+        className="cat-card flex-shrink-0 cursor-pointer overflow-hidden flex flex-col w-[220px] sm:w-[250px] md:w-[280px]"
         style={{
-          width: "280px",
           borderRadius: "1.25rem",
           boxShadow: "0 2px 16px rgba(0,0,0,0.07)",
         }}
       >
         {/* ── Top content ── */}
-        <div className="flex flex-col items-center text-center px-6 pt-8 pb-5 gap-3">
+        <div className="flex flex-col items-center text-center px-4 sm:px-5 md:px-6 pt-6 sm:pt-7 md:pt-8 pb-4 sm:pb-5 gap-2 sm:gap-3">
           {/* Icon */}
           <span
-            className="cat-icon text-5xl leading-none"
+            className="cat-icon text-4xl sm:text-5xl leading-none"
             style={{
               color: "#f5a623",
               transition: "color 0.35s ease",
@@ -49,10 +48,9 @@ function CategoryCard({ category }: CategoryCardProps) {
 
           {/* Category name */}
           <h3
-            className="cat-heading m-0"
+            className="cat-heading m-0 text-base sm:text-lg md:text-[1.3rem]"
             style={{
               fontFamily: "'Doppio One', sans-serif",
-              fontSize: "1.3rem",
               color: "#2d2d2d",
               transition: "color 0.35s ease",
             }}
@@ -62,7 +60,7 @@ function CategoryCard({ category }: CategoryCardProps) {
 
           {/* Description */}
           <p
-            className="cat-desc text-sm leading-relaxed m-0"
+            className="cat-desc text-xs sm:text-sm leading-relaxed m-0"
             style={{
               fontFamily: "'Roboto', sans-serif",
               color: "#888",
@@ -75,8 +73,7 @@ function CategoryCard({ category }: CategoryCardProps) {
 
         {/* ── Image area ── */}
         <div
-          className="relative mt-auto flex items-end justify-center"
-          style={{ minHeight: "180px" }}
+          className="relative mt-auto flex items-end justify-center min-h-[130px] sm:min-h-[150px] md:min-h-[180px]"
         >
           {/* Orange accent strip — visible by default, hides on hover */}
           <div
@@ -93,10 +90,8 @@ function CategoryCard({ category }: CategoryCardProps) {
           <img
             src={meta.image}
             alt={category.name}
-            className="cat-img-ring relative z-[1] rounded-full object-cover"
+            className="cat-img-ring relative z-[1] rounded-full object-cover w-[120px] h-[120px] sm:w-[140px] sm:h-[140px] md:w-[170px] md:h-[170px]"
             style={{
-              width: "170px",
-              height: "170px",
               border: "5px solid rgba(255,255,255,0.85)",
               marginBottom: "-6px",
               transition: "border-color 0.35s ease",
