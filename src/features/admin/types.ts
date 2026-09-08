@@ -24,6 +24,13 @@ export type MenuItem = {
   isVeg: boolean;
 };
 
+export type Category = {
+  id: string;
+  name: string;
+  description?: string;
+  isActive: boolean;
+};
+
 export type AdminCustomer = {
   id: string;
   name: string;

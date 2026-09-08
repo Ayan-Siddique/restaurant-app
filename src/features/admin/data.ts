@@ -1,4 +1,4 @@
-import type { AdminOrder, AdminCustomer } from "./types";
+import type { AdminOrder, AdminCustomer, Category } from "./types";
 
 export const adminOrders: AdminOrder[] = [
   {
@@ -104,5 +104,38 @@ export const adminCustomers: AdminCustomer[] = [
     totalOrders: 5,
     totalSpent: 3120,
     joinedDate: "Apr 05, 2026",
+  },
+];
+
+export const adminCategories: Category[] = [
+  {
+    id: "CAT-001",
+    name: "Pizza",
+    description: "Wood-fired and classic pizzas with a variety of toppings.",
+    isActive: true,
+  },
+  {
+    id: "CAT-002",
+    name: "Burger",
+    description: "Juicy burgers with fresh ingredients and house sauces.",
+    isActive: true,
+  },
+  {
+    id: "CAT-003",
+    name: "Pasta",
+    description: "Authentic Italian pastas with rich, creamy sauces.",
+    isActive: true,
+  },
+  {
+    id: "CAT-004",
+    name: "Dessert",
+    description: "Sweet treats and indulgent desserts to end your meal.",
+    isActive: true,
+  },
+  {
+    id: "CAT-005",
+    name: "Starters",
+    description: "Appetizers and small bites to kick off your dining experience.",
+    isActive: true,
   },
 ];

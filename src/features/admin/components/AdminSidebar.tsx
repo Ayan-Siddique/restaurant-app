@@ -1,10 +1,13 @@
-import { NavLink } from "react-router-dom";
+import { useState } from "react";
+import { NavLink, useLocation } from "react-router-dom";
 import {
   LayoutDashboard,
   UtensilsCrossed,
   ShoppingBag,
   Users,
   X,
+  ChevronDown,
+  Layers,
 } from "lucide-react";
 
 type AdminSidebarProps = {
@@ -12,55 +15,105 @@ type AdminSidebarProps = {
   onCloseMobile?: () => void;
 };
 
-const navItems = [
-  {
-    to: "/admin/dashboard",
-    label: "Dashboard",
-    icon: LayoutDashboard,
-  },
-  {
-    to: "/admin/menu",
-    label: "Menu",
-    icon: UtensilsCrossed,
-  },
-  {
-    to: "/admin/orders",
-    label: "Orders",
-    icon: ShoppingBag,
-  },
-  {
-    to: "/admin/customers",
-    label: "Customers",
-    icon: Users,
-  },
-];
-
 const AdminSidebar = ({
   isMobileOpen = false,
   onCloseMobile,
 }: AdminSidebarProps) => {
+  const location = useLocation();
+  const isMenuRoute = location.pathname.startsWith("/admin/menu");
+  const [isMenuOpen, setIsMenuOpen] = useState(isMenuRoute);
+
+  const linkClass = ({ isActive }: { isActive: boolean }) =>
+    `flex items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium transition-colors ${
+      isActive
+        ? "bg-primary text-primary-content shadow-xs"
+        : "hover:bg-base-300 text-base-content/80 hover:text-base-content"
+    }`;
+
+  const subLinkClass = ({ isActive }: { isActive: boolean }) =>
+    `flex items-center gap-3 rounded-lg px-4 py-2.5 text-sm transition-colors ${
+      isActive
+        ? "bg-primary/10 text-primary font-semibold"
+        : "hover:bg-base-300 text-base-content/70 hover:text-base-content"
+    }`;
+
   const renderNavLinks = (onItemClick?: () => void) => (
     <nav className="space-y-1 sm:space-y-2">
-      {navItems.map((item) => {
-        const Icon = item.icon;
-        return (
-          <NavLink
-            key={item.to}
-            to={item.to}
-            onClick={onItemClick}
-            className={({ isActive }) =>
-              `flex items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium transition-colors ${
-                isActive
-                  ? "bg-primary text-primary-content shadow-xs"
-                  : "hover:bg-base-300 text-base-content/80 hover:text-base-content"
-              }`
-            }
-          >
-            <Icon size={20} className="shrink-0" />
-            <span>{item.label}</span>
-          </NavLink>
-        );
-      })}
+      {/* Dashboard */}
+      <NavLink
+        to="/admin/dashboard"
+        end
+        onClick={onItemClick}
+        className={linkClass}
+      >
+        <LayoutDashboard size={20} className="shrink-0" />
+        <span>Dashboard</span>
+      </NavLink>
+
+      {/* Menu (expandable) */}
+      <div>
+        <button
+          type="button"
+          onClick={() => setIsMenuOpen((prev) => !prev)}
+          className={`flex w-full items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium transition-colors ${
+            isMenuRoute
+              ? "bg-base-300 text-base-content"
+              : "hover:bg-base-300 text-base-content/80 hover:text-base-content"
+          }`}
+        >
+          <UtensilsCrossed size={20} className="shrink-0" />
+          <span className="flex-1 text-left">Menu</span>
+          <ChevronDown
+            size={16}
+            className={`shrink-0 opacity-50 transition-transform ${
+              isMenuOpen ? "rotate-180" : ""
+            }`}
+          />
+        </button>
+
+        {isMenuOpen && (
+          <div className="ml-4 mt-1 space-y-0.5 border-l-2 border-base-300 pl-3">
+            <NavLink
+              to="/admin/menu"
+              end
+              onClick={onItemClick}
+              className={subLinkClass}
+            >
+              <UtensilsCrossed size={16} className="shrink-0" />
+              <span>Dishes</span>
+            </NavLink>
+
+            <NavLink
+              to="/admin/menu/categories"
+              onClick={onItemClick}
+              className={subLinkClass}
+            >
+              <Layers size={16} className="shrink-0" />
+              <span>Categories</span>
+            </NavLink>
+          </div>
+        )}
+      </div>
+
+      {/* Orders */}
+      <NavLink
+        to="/admin/orders"
+        onClick={onItemClick}
+        className={linkClass}
+      >
+        <ShoppingBag size={20} className="shrink-0" />
+        <span>Orders</span>
+      </NavLink>
+
+      {/* Customers */}
+      <NavLink
+        to="/admin/customers"
+        onClick={onItemClick}
+        className={linkClass}
+      >
+        <Users size={20} className="shrink-0" />
+        <span>Customers</span>
+      </NavLink>
     </nav>
   );
 
@@ -116,4 +169,5 @@ const AdminSidebar = ({
   );
 };
 
-export default AdminSidebar;
+export default AdminSidebar;
+

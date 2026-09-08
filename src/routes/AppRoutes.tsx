@@ -8,6 +8,7 @@ import AdminDashboardPage from "../features/admin/dashboard/pages/AdminDashboard
 import AdminMenuPage from "../features/admin/menu/pages/AdminMenuPage";
 import AdminOrdersPage from "../features/admin/orders/pages/AdminOrdersPage";
 import AdminCustomersPage from "../features/admin/customers/pages/AdminCustomersPage";
+import AdminCategoriesPage from "../features/admin/menu/pages/AdminCategoriesPage";
 
 function AppRoutes() {
   return (
@@ -21,6 +22,7 @@ function AppRoutes() {
         <Route index element={<Navigate to="dashboard" replace />} />
         <Route path="dashboard" element={<AdminDashboardPage />} />
         <Route path="menu" element={<AdminMenuPage />} />
+        <Route path="menu/categories" element={<AdminCategoriesPage />} />
         <Route path="orders" element={<AdminOrdersPage />} />
         <Route path="customers" element={<AdminCustomersPage />} />
       </Route>
