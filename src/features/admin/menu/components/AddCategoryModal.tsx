@@ -5,15 +5,21 @@ type AddCategoryModalProps = {
   onClose: () => void;
   onAddCategory: (category: Category) => void;
   existingCategories: Category[];
+  category?: Category | null;
+  onUpdateCategory?: (category: Category) => void;
 };
 
 const AddCategoryModal = ({
   onClose,
   onAddCategory,
   existingCategories,
+  category,
+  onUpdateCategory,
 }: AddCategoryModalProps) => {
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
+  const isEditing = Boolean(category);
+
+  const [name, setName] = useState(category?.name ?? "");
+  const [description, setDescription] = useState(category?.description ?? "");
   const [error, setError] = useState("");
 
   const handleClose = useCallback(() => {
@@ -56,23 +62,35 @@ const AddCategoryModal = ({
       return;
     }
 
-    const isDuplicate = existingCategories.some(
-      (cat) => cat.name.trim().toLowerCase() === trimmedName.toLowerCase()
-    );
+    const isDuplicate = existingCategories.some((cat) => {
+      if (category && cat.id === category.id) {
+        return false;
+      }
+      return cat.name.trim().toLowerCase() === trimmedName.toLowerCase();
+    });
 
     if (isDuplicate) {
       setError(`A category named "${trimmedName}" already exists.`);
       return;
     }
 
-    const newCategory: Category = {
-      id: generateCategoryId(),
-      name: trimmedName,
-      description: description.trim() || undefined,
-      isActive: true,
-    };
+    if (category && onUpdateCategory) {
+      const updatedCategory: Category = {
+        ...category,
+        name: trimmedName,
+        description: description.trim() || undefined,
+      };
+      onUpdateCategory(updatedCategory);
+    } else {
+      const newCategory: Category = {
+        id: generateCategoryId(),
+        name: trimmedName,
+        description: description.trim() || undefined,
+        isActive: true,
+      };
+      onAddCategory(newCategory);
+    }
 
-    onAddCategory(newCategory);
     handleClose();
   };
 
@@ -86,7 +104,7 @@ const AddCategoryModal = ({
       }}
       role="dialog"
       aria-modal="true"
-      aria-labelledby="add-category-title"
+      aria-labelledby="category-modal-title"
     >
       <div
         className="w-full max-w-md rounded-xl bg-base-100 p-4 sm:p-6 shadow-xl max-h-[90vh] flex flex-col my-auto"
@@ -95,11 +113,13 @@ const AddCategoryModal = ({
         {/* Header */}
         <div className="mb-4 sm:mb-6 flex items-start justify-between shrink-0">
           <div>
-            <h2 id="add-category-title" className="text-lg sm:text-xl font-bold">
-              Add Category
+            <h2 id="category-modal-title" className="text-lg sm:text-xl font-bold">
+              {isEditing ? "Edit Category" : "Add Category"}
             </h2>
             <p className="mt-1 text-xs sm:text-sm opacity-60">
-              Create a new food category for your menu.
+              {isEditing
+                ? "Update details of this food category."
+                : "Create a new food category for your menu."}
             </p>
           </div>
 
@@ -179,7 +199,7 @@ const AddCategoryModal = ({
               type="submit"
               className="btn btn-primary btn-sm sm:btn-md w-full sm:w-auto"
             >
-              Add
+              {isEditing ? "Save Changes" : "Add"}
             </button>
           </div>
         </form>

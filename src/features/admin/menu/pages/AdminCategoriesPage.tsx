@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { Search, Pencil } from "lucide-react";
+import { Search, Pencil, Trash2 } from "lucide-react";
 
 import AdminPageHeader from "../../components/AdminPageHeader";
 import AddCategoryModal from "../components/AddCategoryModal";
+import DeleteCategoryModal from "../components/DeleteCategoryModal";
 import { adminCategories } from "../../data";
 import type { Category } from "../../types";
 
@@ -10,10 +11,33 @@ const AdminCategoriesPage = () => {
   const [search, setSearch] = useState("");
   const [categories, setCategories] = useState<Category[]>(adminCategories);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [editingCategory, setEditingCategory] = useState<Category | null>(null);
+  const [deletingCategory, setDeletingCategory] = useState<Category | null>(null);
 
   const handleAddCategory = (newCategory: Category) => {
     setCategories((prev) => [...prev, newCategory]);
     setIsAddModalOpen(false);
+  };
+
+  const handleUpdateCategory = (updatedCategory: Category) => {
+    setCategories((prev) =>
+      prev.map((cat) => (cat.id === updatedCategory.id ? updatedCategory : cat))
+    );
+    setEditingCategory(null);
+  };
+
+  const handleToggleActive = (id: string) => {
+    setCategories((prev) =>
+      prev.map((cat) =>
+        cat.id === id ? { ...cat, isActive: !cat.isActive } : cat
+      )
+    );
+  };
+
+  const handleConfirmDelete = () => {
+    if (!deletingCategory) return;
+    setCategories((prev) => prev.filter((cat) => cat.id !== deletingCategory.id));
+    setDeletingCategory(null);
   };
 
   const filteredCategories = categories.filter((cat) =>
@@ -115,25 +139,55 @@ const AdminCategoriesPage = () => {
                     </td>
 
                     <td className="whitespace-nowrap">
-                      <span
-                        className={`badge badge-sm sm:badge-md ${
-                          cat.isActive
-                            ? "badge-success"
-                            : "badge-ghost opacity-60"
-                        }`}
-                      >
-                        {cat.isActive ? "Active" : "Inactive"}
-                      </span>
+                      <label className="flex items-center gap-2 cursor-pointer w-fit">
+                        <input
+                          type="checkbox"
+                          className="toggle toggle-success toggle-xs sm:toggle-sm"
+                          checked={cat.isActive}
+                          onChange={() => handleToggleActive(cat.id)}
+                          aria-label={`Toggle active status for ${cat.name}`}
+                          title={
+                            cat.isActive
+                              ? "Click to deactivate"
+                              : "Click to activate"
+                          }
+                        />
+                        <span
+                          className={`badge badge-sm sm:badge-md select-none ${
+                            cat.isActive
+                              ? "badge-success"
+                              : "badge-ghost opacity-60"
+                          }`}
+                        >
+                          {cat.isActive ? "Active" : "Inactive"}
+                        </span>
+                      </label>
                     </td>
 
                     <td className="whitespace-nowrap">
-                      <button
-                        type="button"
-                        className="btn btn-ghost btn-xs sm:btn-sm gap-1"
-                      >
-                        <Pencil size={14} className="shrink-0" />
-                        <span className="hidden sm:inline">Edit</span>
-                      </button>
+                      <div className="flex items-center gap-1 sm:gap-2">
+                        <button
+                          type="button"
+                          className="btn btn-ghost btn-xs sm:btn-sm gap-1"
+                          onClick={() => setEditingCategory(cat)}
+                          aria-label={`Edit ${cat.name}`}
+                          title="Edit category"
+                        >
+                          <Pencil size={14} className="shrink-0" />
+                          <span className="hidden sm:inline">Edit</span>
+                        </button>
+
+                        <button
+                          type="button"
+                          className="btn btn-ghost btn-xs sm:btn-sm text-error gap-1"
+                          onClick={() => setDeletingCategory(cat)}
+                          aria-label={`Delete ${cat.name}`}
+                          title="Delete category"
+                        >
+                          <Trash2 size={14} className="shrink-0" />
+                          <span className="hidden sm:inline">Delete</span>
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 ))
@@ -143,11 +197,34 @@ const AdminCategoriesPage = () => {
         </div>
       </section>
 
+      {/* Add Category Modal */}
       {isAddModalOpen && (
         <AddCategoryModal
+          key="add-category"
           onClose={() => setIsAddModalOpen(false)}
           onAddCategory={handleAddCategory}
           existingCategories={categories}
+        />
+      )}
+
+      {/* Edit Category Modal */}
+      {editingCategory && (
+        <AddCategoryModal
+          key={`edit-${editingCategory.id}`}
+          category={editingCategory}
+          onClose={() => setEditingCategory(null)}
+          onAddCategory={handleAddCategory}
+          onUpdateCategory={handleUpdateCategory}
+          existingCategories={categories}
+        />
+      )}
+
+      {/* Delete Confirmation Modal */}
+      {deletingCategory && (
+        <DeleteCategoryModal
+          categoryName={deletingCategory.name}
+          onClose={() => setDeletingCategory(null)}
+          onConfirm={handleConfirmDelete}
         />
       )}
     </div>
