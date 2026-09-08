@@ -17,3 +17,28 @@ h1, h2, h3, h4, h5, h6 {
     transform: translateY(0);
   }
 }
+
+
+:root,
+[data-theme="all"] {
+  --tree-color: #f5a623;
+}
+
+[data-theme="veg"],
+[data-theme="green"] {
+  --tree-color: #22c55e;
+}
+
+[data-theme="nonVeg"],
+[data-theme="non-veg"],
+[data-theme="red"] {
+  --tree-color: #ef4444;
+}
+
+[data-theme="blue"] {
+  --tree-color: #3b82f6;
+}
+
+.footer-trees {
+  transition: fill 0.35s ease;
+}

@@ -1,6 +1,6 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
-type ThemeMode ="all" | "veg" | "nonVeg";
+type ThemeMode ="all" | "veg" ;
 
 interface ThemeState {
   mode: ThemeMode;

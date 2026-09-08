@@ -7,33 +7,23 @@ function ThemeToggle() {
 
   return (
     <div className="flex gap-1.5 sm:gap-2">
-      <button
-        type="button"
-        className={`btn btn-xs sm:btn-sm ${mode === "all" ? "btn-neutral" : "btn-outline"}`}
-        onClick={() => dispatch(setMode("all"))}
-      >
-        All
-      </button>
+      
 
       <button
-        type="button"
-        className={`btn btn-xs sm:btn-sm ${
-          mode === "veg" ? "bg-green-500 text-white" : "btn-outline"
-        }`}
-        onClick={() => dispatch(setMode("veg"))}
-      >
-        Veg
-      </button>
+  type="button"
+  className={`btn btn-xs sm:btn-sm ${
+    mode === "veg"
+      ? "bg-green-500 text-white"
+      : "btn-outline"
+  }`}
+  onClick={() =>
+    dispatch(setMode(mode === "veg" ? "all" : "veg"))
+  }
+>
+  Veg
+</button>
 
-      <button
-        type="button"
-        className={`btn btn-xs sm:btn-sm ${
-          mode === "nonVeg" ? "bg-red-500 text-white" : "btn-outline"
-        }`}
-        onClick={() => dispatch(setMode("nonVeg"))}
-      >
-        Non-Veg
-      </button>
+      
     </div>
   );
 }

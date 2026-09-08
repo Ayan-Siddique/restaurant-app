@@ -6,6 +6,7 @@ import NotFound from "../../../components/common/NotFound";
 import SectionHeading from "../../../components/common/SectionHeading";
 import MenuCard from "../../menu/components/MenuCard";
 import Container from "../../../components/layout/Container";
+import FilterTabs from "../../../components/common/FilterTabs";
 
 interface PopularDishesProps {
   items: MenuItem[];
@@ -63,30 +64,12 @@ function PopularDishes({ items }: PopularDishesProps) {
 
         {/* Filter Tabs */}
         <div className="mb-8 flex flex-wrap justify-center gap-2 sm:mb-12 sm:gap-3">
-          {FILTER_TABS.map((tab) => {
-            const isActive = activeTab === tab;
-
-            return (
-              <button
-                key={tab}
-                type="button"
-                onClick={() => setActiveTab(tab)}
-                className="cursor-pointer rounded px-4 py-1.5 text-xs font-medium transition-all duration-300 sm:px-6 sm:py-2 sm:text-sm"
-                style={{
-                  background: isActive ? "#f5a623" : "#fff",
-                  color: isActive ? "#fff" : "#2d2d2d",
-                  border: isActive
-                    ? "2px solid #f5a623"
-                    : "2px solid #e0ddd8",
-                  boxShadow: isActive
-                    ? "0 4px 12px rgba(245,166,35,0.3)"
-                    : "none",
-                }}
-              >
-                {tab}
-              </button>
-            );
-          })}
+          <FilterTabs
+          tabs={FILTER_TABS}
+          activeTab={activeTab}
+          onChange={setActiveTab}
+          className="mb-8 sm:mb-12"
+        />
         </div>
 
         {/* Dish Grid */}

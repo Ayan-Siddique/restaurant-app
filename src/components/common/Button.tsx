@@ -1,54 +1,41 @@
-import type { ReactNode, MouseEventHandler } from "react";
+import type { ReactNode } from "react";
 import { Link } from "react-router-dom";
+import { useAppSelector } from "../../store/hooks";
 
 type ButtonProps = {
   children?: ReactNode;
   to?: string;
-  onClick?: MouseEventHandler<HTMLButtonElement | HTMLAnchorElement>;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
   className?: string;
   type?: "button" | "submit" | "reset";
-  variant?: "primary" | "veg" | "non-veg";
 };
 
 const Button = ({
   children = "Explore Menu",
-  to = "/menu",
+  to,
   onClick,
   className = "",
   type = "button",
-  variant = "primary",
 }: ButtonProps) => {
-  const isPrimary = variant === "primary";
-  const bgDefault = isPrimary ? "#f5a623" : variant === "veg" ? "#4caf50" : "#f44336";
-  const bgHover = "#000000";
 
-  const baseClasses = `inline-block px-8 py-3 text-base font-medium no-underline transition-all duration-300 cursor-pointer ${className}`;
+const mode = useAppSelector((state) => state.theme.mode);
 
-  const baseStyle: React.CSSProperties = {
-    background: bgDefault,
-    color: "#fff",
-    fontFamily: "'Roboto', sans-serif",
+  const variantClasses = {
+    primary: "bg-[#f5a623]",
+    veg: "bg-[#4caf50]",
   };
 
-  const handleMouseEnter = (e: React.MouseEvent<HTMLElement>) => {
-    e.currentTarget.style.background = bgHover;
-    e.currentTarget.style.transform = "translateY(-2px)";
-  };
-
-  const handleMouseLeave = (e: React.MouseEvent<HTMLElement>) => {
-    e.currentTarget.style.background = bgDefault;
-    e.currentTarget.style.transform = "translateY(0)";
-  };
+  const classes = `
+    inline-block cursor-pointer px-8 py-3 text-base font-medium
+    text-white no-underline transition-all duration-300
+    hover:-translate-y-0.5 hover:bg-black
+    ${mode === "veg" ? variantClasses.veg : variantClasses.primary}
+    ${className}
+  `;
 
   if (to && !onClick) {
     return (
-      <Link
-        to={to}
-        className={baseClasses}
-        style={baseStyle}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-      >
+      <Link to={to} className={classes}>
         {children}
       </Link>
     );
@@ -58,10 +45,7 @@ const Button = ({
     <button
       type={type}
       onClick={onClick}
-      className={baseClasses}
-      style={{ ...baseStyle, border: "none" }}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
+      className={classes}
     >
       {children}
     </button>

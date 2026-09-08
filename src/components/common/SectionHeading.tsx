@@ -15,6 +15,7 @@ const SectionHeading = ({ children, colorHeading, className = "" }: Heading2Prop
         fontSize: "clamp(1.8rem, 4vw, 2.8rem)",
         color: "#2d2d2d",
         fontWeight: "bold",
+        textAlign: "center",
       }}
     >
       {children}

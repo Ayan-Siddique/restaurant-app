@@ -1,0 +1,206 @@
+import type { SVGProps } from "react";
+
+function FooterIllustration(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 1920 400"
+      xmlns="http://www.w3.org/2000/svg"
+      className="h-auto w-full"
+      preserveAspectRatio="none"
+      aria-hidden="true"
+      {...props}
+    >
+      <defs>
+    <g id="cloud">
+      <ellipse cx="0" cy="0" rx="34" ry="16"/>
+      <ellipse cx="26" cy="-7" rx="22" ry="13"/>
+      <ellipse cx="-24" cy="4" rx="20" ry="11"/>
+    </g>
+    <path id="bird" d="M-9,0 Q-4.5,-7 0,0 Q4.5,-7 9,0" fill="none" stroke="#BDB8AD" strokeWidth="2" strokeLinecap="round"/>
+    <g id="bush" transform="translate(0,-14)">
+      <ellipse cx="0" cy="0" rx="26" ry="14"/>
+      <ellipse cx="-16" cy="3" rx="14" ry="9"/>
+      <ellipse cx="16" cy="3" rx="14" ry="9"/>
+    </g>
+    <g id="trunk" fill="none" stroke="#6B5744" strokeWidth="5" strokeLinecap="round">
+      <line x1="0" y1="0" x2="0" y2="-42"/>
+      <line x1="0" y1="-14" x2="11" y2="-27"/>
+      <line x1="0" y1="-24" x2="-10" y2="-35"/>
+    </g>
+    <g id="tree-round">
+      <circle cx="0" cy="-8" r="34"/>
+      <circle cx="-25" cy="10" r="24"/>
+      <circle cx="25" cy="9" r="23"/>
+      <circle cx="0" cy="-32" r="19"/>
+    </g>
+    <path id="tree-blob" d="M0,-96 C40,-99 71,-66 63,-27 C93,-17 92,20 57,40 C66,69 33,90 -4,80 C-49,93 -88,58 -70,19 C-98,4 -83,-40 -47,-54 C-45,-85 -21,-97 0,-96 Z"/>
+    <g id="bench" fill="#454251">
+      <rect x="0" y="-24" width="72" height="5" rx="1.5"/>
+      <rect x="0" y="-11" width="72" height="5" rx="1.5"/>
+      <rect x="4" y="-32" width="5" height="9" rx="1"/>
+      <rect x="63" y="-32" width="5" height="9" rx="1"/>
+      <rect x="4" y="-19" width="5" height="19" rx="1"/>
+      <rect x="63" y="-19" width="5" height="19" rx="1"/>
+    </g>
+    <g id="lamp" fill="#454251">
+      <rect x="-2.5" y="-90" width="5" height="90" rx="1.5"/>
+      <path d="M-14,-90 Q0,-108 14,-90 Z"/>
+      <ellipse cx="0" cy="-90" rx="9" ry="6" fill="#EFE7D6"/>
+    </g>
+    <g id="p-walk">
+      <circle cx="0" cy="-61" r="7" fill="#3B3847"/>
+      <path d="M-8,-52 Q0,-58 8,-52 L9,-19 Q0,-15 -9,-19 Z" fill="#5C6B73"/>
+      <path d="M-8,-46 L-16,-32 L-13,-29 L-6,-41 Z" fill="#3B3847"/>
+      <path d="M8,-46 L15,-33 L12,-30 L6,-41 Z" fill="#3B3847"/>
+      <path d="M-8,-19 L-12,0 L-5,0 L-2,-17 Z" fill="#3B3847"/>
+      <path d="M2,-17 L5,0 L12,0 L8,-19 Z" fill="#3B3847"/>
+    </g>
+    <g id="p-sit">
+      <circle cx="0" cy="-40" r="7" fill="#3B3847"/>
+      <path d="M-8,-31 Q0,-36 8,-31 L9,-10 Q0,-6 -9,-10 Z" fill="#5C6B73"/>
+      <path d="M-8,-27 L-18,-19 L-15,-15 L-6,-22 Z" fill="#3B3847"/>
+      <path d="M-9,-10 L-9,1 L2,1 L2,-10 Z" fill="#3B3847"/>
+      <path d="M2,-9 L15,-9 L15,-1 L2,-1 Z" fill="#3B3847"/>
+    </g>
+    <g id="p-read">
+      <circle cx="0" cy="-62" r="7" fill="#3B3847"/>
+      <path d="M-8,-53 Q0,-59 8,-53 L9,-16 Q0,-12 -9,-16 Z" fill="#8B95A1"/>
+      <path d="M-7,-16 L-10,0 L-3,0 L-1,-16 Z" fill="#3B3847"/>
+      <path d="M1,-16 L3,0 L10,0 L7,-16 Z" fill="#3B3847"/>
+      <rect x="-11" y="-49" width="17" height="13" fill="#ECE9E3" transform="rotate(-10)"/>
+      <rect x="-11" y="-49" width="17" height="13" fill="none" stroke="#C9C5BD" strokeWidth="1" transform="rotate(-10)"/>
+    </g>
+    <g id="cyclist" fill="none" stroke="#3B3847" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="-19" cy="-15" r="15"/>
+      <circle cx="19" cy="-15" r="15"/>
+      <path d="M-19,-15 L0,-37 L19,-15 M0,-37 L-7,-53 M-19,-15 L7,-24 L19,-15 M7,-24 L7,-53 L-3,-53"/>
+      <circle cx="7" cy="-53" r="3.5" fill="#3B3847" stroke="none"/>
+      <circle cx="7" cy="-67" r="6.5" fill="#3B3847" stroke="none"/>
+    </g>
+  </defs>
+
+  <g className="bg-decor" fill="#EFEBE4">
+    <circle cx="130" cy="205" r="62" opacity="0.55"/>
+    <circle cx="980" cy="145" r="82" opacity="0.45"/>
+    <circle cx="1290" cy="195" r="50" opacity="0.5"/>
+    <circle cx="1790" cy="150" r="90" opacity="0.45"/>
+  </g>
+
+  <g className="clouds" fill="#ECE8E1">
+    <use href="#cloud" transform="translate(260,58)"/>
+    <use href="#cloud" transform="translate(905,42) scale(0.85)"/>
+    <use href="#cloud" transform="translate(1560,38) scale(1.05)"/>
+  </g>
+
+  <g className="birds">
+    <use href="#bird" transform="translate(1670,88)"/>
+    <use href="#bird" transform="translate(1701,102) scale(0.8)"/>
+    <use href="#bird" transform="translate(1645,105) scale(0.7)"/>
+  </g>
+
+  <line x1="0" y1="378" x2="1920" y2="378" stroke="#D9D5CE" strokeWidth="2"/>
+
+  <g className="buildings">
+    <g transform="translate(1610,378)" opacity="0.55">
+      <rect x="0" y="-150" width="66" height="150" fill="#E7E4DE"/>
+      <g fill="#D2CEC6">
+        <rect x="10" y="-132" width="12" height="15"/>
+        <rect x="34" y="-132" width="12" height="15"/>
+        <rect x="10" y="-104" width="12" height="15"/>
+        <rect x="34" y="-104" width="12" height="15"/>
+        <rect x="10" y="-76" width="12" height="15"/>
+        <rect x="34" y="-76" width="12" height="15"/>
+      </g>
+    </g>
+
+    <g transform="translate(905,378)">
+      <rect x="0" y="-224" width="82" height="224" fill="#E9E6E0"/>
+      <g fill="#CFCBC2">
+        <rect x="12" y="-204" width="14" height="17"/>
+        <rect x="44" y="-204" width="14" height="17"/>
+        <rect x="12" y="-172" width="14" height="17"/>
+        <rect x="44" y="-172" width="14" height="17"/>
+        <rect x="12" y="-140" width="14" height="17"/>
+        <rect x="44" y="-140" width="14" height="17"/>
+        <rect x="12" y="-108" width="14" height="17"/>
+        <rect x="44" y="-108" width="14" height="17"/>
+        <rect x="12" y="-76" width="14" height="17"/>
+        <rect x="44" y="-76" width="14" height="17"/>
+        <rect x="12" y="-44" width="14" height="17"/>
+        <rect x="44" y="-44" width="14" height="17"/>
+      </g>
+    </g>
+
+    <g transform="translate(1040,378)">
+      <rect x="0" y="-184" width="104" height="184" fill="#E4E1DA"/>
+      <g fill="#CFCBC2">
+        <rect x="14" y="-164" width="16" height="18"/>
+        <rect x="44" y="-164" width="16" height="18"/>
+        <rect x="74" y="-164" width="16" height="18"/>
+        <rect x="14" y="-130" width="16" height="18"/>
+        <rect x="44" y="-130" width="16" height="18"/>
+        <rect x="74" y="-130" width="16" height="18"/>
+        <rect x="14" y="-96" width="16" height="18"/>
+        <rect x="44" y="-96" width="16" height="18"/>
+        <rect x="74" y="-96" width="16" height="18"/>
+        <rect x="14" y="-62" width="16" height="18"/>
+        <rect x="44" y="-62" width="16" height="18"/>
+        <rect x="74" y="-62" width="16" height="18"/>
+      </g>
+    </g>
+
+    <g transform="translate(420,378)">
+      <polygon points="-72,-90 0,-142 72,-90" fill="#D8D4CB"/>
+      <rect x="-66" y="-90" width="132" height="90" fill="#E9E6E0"/>
+      <rect x="30" y="-134" width="13" height="26" fill="#D8D4CB"/>
+      <rect x="-12" y="-42" width="24" height="42" fill="#C9C5BC"/>
+      <rect x="-46" y="-72" width="19" height="19" fill="#C9C5BC"/>
+      <rect x="27" y="-72" width="19" height="19" fill="#C9C5BC"/>
+    </g>
+  </g>
+
+  <g className="tree-trunks">
+    <use href="#trunk" transform="translate(95,378) scale(1.5)"/>
+    <use href="#trunk" transform="translate(320,378) scale(0.85)"/>
+    <use href="#trunk" transform="translate(600,378) scale(0.7)"/>
+    <use href="#trunk" transform="translate(1195,378) scale(0.9)"/>
+    <use href="#trunk" transform="translate(1345,378) scale(0.75)"/>
+    <use href="#trunk" transform="translate(1500,378) scale(1.05)"/>
+    <use href="#trunk" transform="translate(1795,378) scale(1.75)"/>
+    <use href="#trunk" transform="translate(1875,378) scale(0.95)"/>
+  </g>
+
+  <g className="footer-trees" fill="currentColor">
+    <use href="#tree-round" transform="translate(95,313) scale(1.5)"/>
+    <use href="#tree-round" transform="translate(320,338) scale(0.85)"/>
+    <use href="#tree-round" transform="translate(600,346) scale(0.7)"/>
+    <use href="#tree-round" transform="translate(1195,335) scale(0.9)"/>
+    <use href="#tree-round" transform="translate(1345,343) scale(0.75)"/>
+    <use href="#tree-round" transform="translate(1500,326) scale(1.05)"/>
+    <use href="#tree-blob" transform="translate(1795,283) scale(1.75)"/>
+    <use href="#tree-round" transform="translate(1875,331) scale(0.95)"/>
+  </g>
+
+  <g className="ground-props" fill="#DFDBD3">
+    <use href="#bush" transform="translate(200,378) scale(0.9)"/>
+    <use href="#bush" transform="translate(970,378) scale(0.7)"/>
+    <use href="#bush" transform="translate(1440,378) scale(0.8)"/>
+  </g>
+
+  <use href="#lamp" transform="translate(1220,378) scale(0.85)"/>
+
+  <use href="#bench" transform="translate(150,378)"/>
+  <use href="#p-sit" transform="translate(186,367) scale(0.95)"/>
+
+  <use href="#bench" transform="translate(1090,378) scale(0.9)"/>
+
+  <use href="#p-walk" transform="translate(350,378) scale(0.9)"/>
+  <use href="#p-walk" transform="translate(860,378) scale(0.85) scale(-1,1)"/>
+  <use href="#p-walk" transform="translate(1150,378) scale(0.95)"/>
+  <use href="#cyclist" transform="translate(1620,378) scale(0.85)"/>
+  <use href="#p-read" transform="translate(1830,378)"/>
+    </svg>
+  );
+}
+
+export default FooterIllustration;
