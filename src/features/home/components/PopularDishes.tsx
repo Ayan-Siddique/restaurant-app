@@ -26,10 +26,13 @@ function PopularDishes({ items }: PopularDishesProps) {
   const filtered =
     activeTab === "All"
       ? items
-      : items.filter(
-          (item) =>
-            item.category.toLowerCase() === activeTab.toLowerCase()
-        );
+      : items.filter((item) => {
+          const catName =
+            typeof item.category === "string"
+              ? item.category
+              : item.category?.name || "";
+          return catName.toLowerCase() === activeTab.toLowerCase();
+        });
 
   return (
     <section

@@ -1,4 +1,5 @@
 import type { MenuItem } from "../../types";
+import Button from "../../../../components/common/Button";
 
 type MenuTableProps = {
   items: MenuItem[];
@@ -26,26 +27,31 @@ const MenuTable = ({ items, onAvailabilityChange, onEditDish, onDeleteDish }: Me
             {items.length === 0 ? (
               <tr>
                 <td colSpan={5} className="py-8 text-center text-sm opacity-60">
-                  No dishes found matching your criteria.
+                  No dishes found matching your search.
                 </td>
               </tr>
             ) : (
               items.map((item) => (
                 <tr key={item.id}>
-                  <td className="font-medium whitespace-nowrap">
-                    <div className="flex items-center gap-2">
-                      <span className="font-semibold">{item.name}</span>
-                      <span
-                        className={`badge badge-xs shrink-0 ${
-                          item.isVeg ? "badge-success" : "badge-error"
-                        }`}
-                      >
-                        {item.isVeg ? "Veg" : "Non-Veg"}
-                      </span>
+                  <td className="whitespace-nowrap">
+                    <div className="font-semibold flex items-center gap-2">
+                      <span>{item.name}</span>
+                      {item.isVeg && (
+                        <span className="badge badge-success badge-xs">Veg</span>
+                      )}
                     </div>
+                    {item.description && (
+                      <div className="text-xs opacity-60 max-w-xs truncate">
+                        {item.description}
+                      </div>
+                    )}
                   </td>
 
-                  <td className="whitespace-nowrap">{item.category}</td>
+                  <td className="whitespace-nowrap">
+                    <span className="badge badge-ghost badge-sm sm:badge-md">
+                      {item.category}
+                    </span>
+                  </td>
 
                   <td className="whitespace-nowrap font-medium">
                     ₹{item.price.toLocaleString("en-IN")}
@@ -63,19 +69,24 @@ const MenuTable = ({ items, onAvailabilityChange, onEditDish, onDeleteDish }: Me
 
                   <td className="whitespace-nowrap">
                     <div className="flex items-center gap-1 sm:gap-2">
-                      <button
-                        className="btn btn-ghost btn-xs sm:btn-sm"
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="xs"
                         onClick={() => onEditDish(item)}
                       >
                         Edit
-                      </button>
+                      </Button>
 
-                      <button
-                        className="btn btn-ghost btn-xs sm:btn-sm text-error"
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="xs"
+                        className="text-rose-600 hover:bg-rose-50"
                         onClick={() => onDeleteDish(item.id)}
                       >
                         Delete
-                      </button>
+                      </Button>
                     </div>
                   </td>
                 </tr>

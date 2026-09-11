@@ -58,19 +58,28 @@ export const FOOD_TYPES = [
 ] as const;
 
 /**
- * Order statuses supported across Admin Orders and Dashboard
+ * Order statuses supported across Admin Orders and Dashboard (backend source of truth)
  */
 export const ORDER_STATUSES: OrderStatus[] = [
-  "Pending",
-  "Confirmed",
-  "Preparing",
-  "Ready",
-  "Completed",
-  "Cancelled",
+  "pending",
+  "accepted",
+  "preparing",
+  "delivered",
+  "declined",
+  "cancelled",
 ];
 
+export const ORDER_STATUS_LABELS: Record<OrderStatus, string> = {
+  pending: "Pending",
+  accepted: "Accepted",
+  preparing: "Preparing",
+  delivered: "Delivered",
+  declined: "Declined",
+  cancelled: "Cancelled",
+};
+
 export const ORDER_FILTER_STATUSES = [
-  "All",
+  "all",
   ...ORDER_STATUSES,
 ] as const;
 
@@ -78,12 +87,12 @@ export const ORDER_FILTER_STATUSES = [
  * UI Badge styles for each Order Status (DaisyUI class mapping)
  */
 export const ORDER_STATUS_BADGE_CLASSES: Record<OrderStatus, string> = {
-  Pending: "badge-warning",
-  Confirmed: "badge-info",
-  Preparing: "badge-primary",
-  Ready: "badge-secondary",
-  Completed: "badge-success",
-  Cancelled: "badge-error",
+  pending: "badge-warning",
+  accepted: "badge-info",
+  preparing: "badge-primary",
+  delivered: "badge-success",
+  declined: "badge-error",
+  cancelled: "badge-neutral",
 };
 
 /**

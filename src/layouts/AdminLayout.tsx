@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import { Menu } from "lucide-react";
 import AdminSidebar from "../features/admin/components/AdminSidebar";
@@ -8,9 +8,12 @@ const AdminLayout = () => {
   const location = useLocation();
 
   // Automatically close mobile menu when navigating to another route
-  useEffect(() => {
+  const [prevPathname, setPrevPathname] = useState(location.pathname);
+
+  if (location.pathname !== prevPathname) {
+    setPrevPathname(location.pathname);
     setIsMobileMenuOpen(false);
-  }, [location.pathname]);
+  }
 
   return (
     <div className="min-h-screen bg-base-100 flex flex-col lg:flex-row">

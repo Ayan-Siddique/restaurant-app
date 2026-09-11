@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import {
   LayoutDashboard,
   UtensilsCrossed,
@@ -8,7 +8,13 @@ import {
   X,
   ChevronDown,
   Layers,
+  LogOut,
+  Shield,
+  UserCheck,
 } from "lucide-react";
+import { useAppSelector } from "../../../store/hooks";
+import { restaurantAuthService } from "../services/restaurantAuthService";
+import Button from "../../../components/common/Button";
 
 type AdminSidebarProps = {
   isMobileOpen?: boolean;
@@ -20,8 +26,22 @@ const AdminSidebar = ({
   onCloseMobile,
 }: AdminSidebarProps) => {
   const location = useLocation();
+  const navigate = useNavigate();
+  const { user } = useAppSelector((state) => state.auth);
+
   const isMenuRoute = location.pathname.startsWith("/admin/menu");
   const [isMenuOpen, setIsMenuOpen] = useState(isMenuRoute);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
+
+  const handleLogout = async () => {
+    setIsLoggingOut(true);
+    try {
+      await restaurantAuthService.logout();
+    } finally {
+      setIsLoggingOut(false);
+      navigate("/admin/login", { replace: true });
+    }
+  };
 
   const linkClass = ({ isActive }: { isActive: boolean }) =>
     `flex items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium transition-colors ${
@@ -117,16 +137,59 @@ const AdminSidebar = ({
     </nav>
   );
 
+  const renderUserProfileAndLogout = () => (
+    <div className="pt-4 border-t border-base-300 flex flex-col gap-2">
+      <div className="flex items-center gap-2.5 px-2">
+        <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary shrink-0">
+          {user?.role === "admin" ? (
+            <Shield size={16} />
+          ) : (
+            <UserCheck size={16} />
+          )}
+        </div>
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center gap-1">
+            <span className="text-xs font-bold capitalize text-base-content truncate">
+              {user?.role === "admin" ? "Administrator" : "Staff Member"}
+            </span>
+          </div>
+          {user?.email && (
+            <p className="text-[11px] text-base-content/60 truncate m-0">
+              {user.email}
+            </p>
+          )}
+        </div>
+      </div>
+
+      <Button
+        type="button"
+        onClick={handleLogout}
+        disabled={isLoggingOut}
+        loading={isLoggingOut}
+        variant="ghost"
+        size="sm"
+        className="w-full !justify-start text-rose-600 hover:bg-rose-50 hover:text-rose-700 mt-1 font-semibold"
+      >
+        {!isLoggingOut && <LogOut size={16} className="mr-2.5" />}
+        <span>{isLoggingOut ? "Signing out..." : "Sign Out"}</span>
+      </Button>
+    </div>
+  );
+
   return (
     <>
       {/* Desktop Persistent Sidebar (>= 1024px) */}
-      <aside className="hidden min-h-screen w-64 shrink-0 border-r bg-base-200 p-4 lg:block">
-        <div className="mb-8 px-2">
-          <h2 className="text-xl font-bold tracking-tight">Restaurant Admin</h2>
-          <p className="text-sm opacity-60">Management Panel</p>
+      <aside className="hidden min-h-screen w-64 shrink-0 border-r bg-base-200 p-4 lg:flex lg:flex-col lg:justify-between">
+        <div>
+          <div className="mb-8 px-2">
+            <h2 className="text-xl font-bold tracking-tight">Restaurant Admin</h2>
+            <p className="text-sm opacity-60">Management Panel</p>
+          </div>
+
+          {renderNavLinks()}
         </div>
 
-        {renderNavLinks()}
+        {renderUserProfileAndLogout()}
       </aside>
 
       {/* Mobile & Tablet Drawer (< 1024px) */}
@@ -162,6 +225,8 @@ const AdminSidebar = ({
 
               {renderNavLinks(onCloseMobile)}
             </div>
+
+            {renderUserProfileAndLogout()}
           </div>
         </div>
       )}
@@ -170,4 +235,3 @@ const AdminSidebar = ({
 };
 
 export default AdminSidebar;
-

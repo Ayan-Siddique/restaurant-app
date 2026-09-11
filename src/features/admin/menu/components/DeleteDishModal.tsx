@@ -1,3 +1,5 @@
+import Button from "../../../../components/common/Button";
+
 type DeleteDishModalProps = {
   dishName: string;
   onClose: () => void;
@@ -29,21 +31,25 @@ const DeleteDishModal = ({
         </p>
 
         <div className="mt-6 flex flex-col-reverse sm:flex-row sm:justify-end gap-2 sm:gap-3">
-          <button
+          <Button
             type="button"
-            className="btn btn-ghost btn-sm sm:btn-md w-full sm:w-auto"
+            variant="ghost"
+            size="md"
+            className="w-full sm:w-auto"
             onClick={onClose}
           >
             Cancel
-          </button>
+          </Button>
 
-          <button
+          <Button
             type="button"
-            className="btn btn-error btn-sm sm:btn-md w-full sm:w-auto"
+            variant="danger"
+            size="md"
+            className="w-full sm:w-auto"
             onClick={onConfirm}
           >
             Delete
-          </button>
+          </Button>
         </div>
       </div>
     </div>

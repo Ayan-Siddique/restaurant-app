@@ -1,5 +1,6 @@
 import { useState } from "react";
 import type { MenuItem } from "../../types";
+import Button from "../../../../components/common/Button";
 
 type AddDishModalProps = {
   onClose: () => void;
@@ -139,17 +140,21 @@ const [error, setError] = useState("");
         </div>
 
         <div className="mt-6 flex flex-col-reverse sm:flex-row sm:justify-end gap-2 sm:gap-3 shrink-0 pt-3 border-t">
-          <button
+          <Button
             type="button"
-            className="btn btn-ghost btn-sm sm:btn-md w-full sm:w-auto"
+            variant="ghost"
+            size="md"
+            className="w-full sm:w-auto"
             onClick={onClose}
           >
             Cancel
-          </button>
+          </Button>
 
-          <button
+          <Button
             type="button"
-            className="btn btn-primary btn-sm sm:btn-md w-full sm:w-auto"
+            variant="primary"
+            size="md"
+            className="w-full sm:w-auto"
             onClick={() => {
               if (!name.trim()) {
                 setError("Dish name is required.");
@@ -178,7 +183,7 @@ const [error, setError] = useState("");
             }}
           >
             {dish ? "Save Changes" : "Add Dish"}
-          </button>
+          </Button>
         </div>
       </div>
     </div>

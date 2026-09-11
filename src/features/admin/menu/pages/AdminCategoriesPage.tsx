@@ -1,18 +1,72 @@
-import { useState } from "react";
-import { Search, Pencil, Trash2 } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Search, Pencil, Trash2, RefreshCw } from "lucide-react";
 
 import AdminPageHeader from "../../components/AdminPageHeader";
+import Button from "../../../../components/common/Button";
 import AddCategoryModal from "../components/AddCategoryModal";
 import DeleteCategoryModal from "../components/DeleteCategoryModal";
-import { adminCategories } from "../../data";
+import AdminTableRowSkeleton from "../../../../components/common/skeletons/AdminTableRowSkeleton";
+import {
+  getCategories,
+  transformCategoriesResponse,
+} from "../services/categoryService";
 import type { Category } from "../../types";
 
 const AdminCategoriesPage = () => {
   const [search, setSearch] = useState("");
-  const [categories, setCategories] = useState<Category[]>(adminCategories);
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [editingCategory, setEditingCategory] = useState<Category | null>(null);
   const [deletingCategory, setDeletingCategory] = useState<Category | null>(null);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    getCategories()
+      .then((data) => {
+        if (isMounted) {
+          setCategories(transformCategoriesResponse(data));
+          setIsLoading(false);
+        }
+      })
+      .catch((err: unknown) => {
+        if (isMounted) {
+          console.error("Failed to fetch categories:", err);
+          const message =
+            err instanceof Error
+              ? err.message
+              : "Failed to load categories from backend.";
+          setError(message);
+          setIsLoading(false);
+        }
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  const handleRetry = () => {
+    setIsLoading(true);
+    setError(null);
+    getCategories()
+      .then((data) => {
+        setCategories(transformCategoriesResponse(data));
+      })
+      .catch((err: unknown) => {
+        console.error("Failed to retry categories:", err);
+        const message =
+          err instanceof Error
+            ? err.message
+            : "Failed to load categories from backend.";
+        setError(message);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  };
 
   const handleAddCategory = (newCategory: Category) => {
     setCategories((prev) => [...prev, newCategory]);
@@ -53,13 +107,15 @@ const AdminCategoriesPage = () => {
         title="Categories"
         description="Manage your restaurant food categories."
       >
-        <button
+        <Button
           type="button"
-          className="btn btn-primary btn-sm sm:btn-md w-full sm:w-auto"
+          variant="primary"
+          size="md"
+          className="w-full sm:w-auto"
           onClick={() => setIsAddModalOpen(true)}
         >
           + Add Category
-        </button>
+        </Button>
       </AdminPageHeader>
 
       {/* Summary Cards */}
@@ -69,24 +125,42 @@ const AdminCategoriesPage = () => {
             Total Categories
           </p>
           <p className="mt-1 text-lg sm:text-xl font-bold tracking-tight">
-            {categories.length}
+            {isLoading ? "—" : categories.length}
           </p>
         </div>
 
         <div className="rounded-xl border bg-base-100 p-3 sm:p-4 shadow-sm">
           <p className="text-xs sm:text-sm opacity-60 font-medium">Active</p>
           <p className="mt-1 text-lg sm:text-xl font-bold tracking-tight text-success">
-            {activeCount}
+            {isLoading ? "—" : activeCount}
           </p>
         </div>
 
         <div className="col-span-2 sm:col-span-1 rounded-xl border bg-base-100 p-3 sm:p-4 shadow-sm">
           <p className="text-xs sm:text-sm opacity-60 font-medium">Inactive</p>
           <p className="mt-1 text-lg sm:text-xl font-bold tracking-tight text-base-content/50">
-            {inactiveCount}
+            {isLoading ? "—" : inactiveCount}
           </p>
         </div>
       </div>
+
+      {/* Error Alert */}
+      {error && (
+        <div
+          role="alert"
+          className="mb-6 alert alert-error shadow-sm flex items-center justify-between"
+        >
+          <span className="text-sm">{error}</span>
+          <button
+            type="button"
+            className="btn btn-xs btn-outline"
+            onClick={handleRetry}
+          >
+            <RefreshCw size={12} className="shrink-0" />
+            Retry
+          </button>
+        </div>
+      )}
 
       {/* Search Filter */}
       <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center">
@@ -115,7 +189,27 @@ const AdminCategoriesPage = () => {
               </tr>
             </thead>
             <tbody>
-              {filteredCategories.length === 0 ? (
+              {isLoading ? (
+                <AdminTableRowSkeleton columns={4} rows={5} />
+              ) : error ? (
+                <tr>
+                  <td colSpan={4} className="py-12 text-center">
+                    <div className="flex flex-col items-center justify-center gap-3 text-error">
+                      <p className="text-sm font-medium">{error}</p>
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        className="border-rose-300 text-rose-700 hover:bg-rose-50"
+                        onClick={handleRetry}
+                      >
+                        <RefreshCw size={14} />
+                        Retry
+                      </Button>
+                    </div>
+                  </td>
+                </tr>
+              ) : filteredCategories.length === 0 ? (
                 <tr>
                   <td
                     colSpan={4}
@@ -166,27 +260,30 @@ const AdminCategoriesPage = () => {
 
                     <td className="whitespace-nowrap">
                       <div className="flex items-center gap-1 sm:gap-2">
-                        <button
+                        <Button
                           type="button"
-                          className="btn btn-ghost btn-xs sm:btn-sm gap-1"
+                          variant="ghost"
+                          size="xs"
                           onClick={() => setEditingCategory(cat)}
                           aria-label={`Edit ${cat.name}`}
                           title="Edit category"
                         >
                           <Pencil size={14} className="shrink-0" />
                           <span className="hidden sm:inline">Edit</span>
-                        </button>
+                        </Button>
 
-                        <button
+                        <Button
                           type="button"
-                          className="btn btn-ghost btn-xs sm:btn-sm text-error gap-1"
+                          variant="ghost"
+                          size="xs"
+                          className="text-rose-600 hover:bg-rose-50"
                           onClick={() => setDeletingCategory(cat)}
                           aria-label={`Delete ${cat.name}`}
                           title="Delete category"
                         >
                           <Trash2 size={14} className="shrink-0" />
                           <span className="hidden sm:inline">Delete</span>
-                        </button>
+                        </Button>
                       </div>
                     </td>
                   </tr>

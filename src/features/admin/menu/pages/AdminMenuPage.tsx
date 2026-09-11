@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import AdminPageHeader from "../../components/AdminPageHeader";
+import Button from "../../../../components/common/Button";
 import MenuFilters from "../components/MenuFilters";
 import MenuTable from "../components/MenuTable";
 import AddDishModal from "../components/AddDishModal";
@@ -121,12 +122,14 @@ const confirmDeleteDish = () => {
         title="Menu Management"
         description="Manage your restaurant dishes and their availability."
       >
-        <button
-          className="btn btn-primary btn-sm sm:btn-md w-full sm:w-auto"
+        <Button
+          variant="primary"
+          size="md"
+          className="w-full sm:w-auto"
           onClick={() => setIsAddDishOpen(true)}
         >
           + Add Dish
-        </button>
+        </Button>
       </AdminPageHeader>
 
       <MenuFilters

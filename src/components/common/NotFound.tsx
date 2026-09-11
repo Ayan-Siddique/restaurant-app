@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import Button from "./Button";
 
 export interface NotFoundProps {
   title?: string;
@@ -87,24 +88,14 @@ export const NotFound: React.FC<NotFoundProps> = ({
 
           {/* ── Action Button ── */}
           {buttonText && (
-            <button
+            <Button
               onClick={handleButtonClick}
-              type="button"
-              className="px-7 py-2.5 text-sm sm:text-base font-semibold text-white transition-all duration-200 cursor-pointer shadow-md hover:shadow-lg active:scale-95"
-              style={{
-                background: "#e00000",
-                borderRadius: "12px",
-                letterSpacing: "0.2px",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = "#c70000";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = "#e00000";
-              }}
+              variant="primary"
+              size="md"
+              className="px-7 py-2.5 !rounded-xl font-semibold shadow-md hover:shadow-lg"
             >
               {buttonText}
-            </button>
+            </Button>
           )}
         </div>
       </section>
